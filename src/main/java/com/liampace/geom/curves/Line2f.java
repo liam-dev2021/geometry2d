@@ -64,7 +64,7 @@ public class Line2f implements Bezier2f {
         switch(index) {
             case 0: return start;
             case 1: return end;
-            default: throw new IndexOutOfBoundsException("Expected index in range [0-%s] but recieved: %s".formatted(LENGTH, index));
+            default: throw new IndexOutOfBoundsException("Expected index in range [0-%s] but recieved: %s".formatted(LENGTH-1, index));
         }
     }
 

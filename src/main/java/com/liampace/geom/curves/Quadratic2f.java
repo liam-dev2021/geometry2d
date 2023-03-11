@@ -6,6 +6,8 @@ import com.liampace.geom.Bezier2f;
 
 public class Quadratic2f implements Bezier2f {
 
+    public static final int LENGTH = 3;
+
     private final Vector2f start, control, end;
 
     public Quadratic2f(Quadratic2f other) {
@@ -39,8 +41,7 @@ public class Quadratic2f implements Bezier2f {
 
     @Override
     public int getLength() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        return LENGTH;
     }
     @Override
     public Vector2f getPoint(int index) {
