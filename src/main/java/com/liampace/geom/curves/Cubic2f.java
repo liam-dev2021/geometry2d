@@ -88,8 +88,12 @@ public class Cubic2f implements Bezier2f {
     
     @Override
     public Vector2f getDerivative(float t, Vector2f dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDerivative'");
+        return Quadratic2f.Interpolate(
+            controlA.x - start.x, controlA.y - start.y, 
+            controlB.x -controlA.x, controlB.y -controlA.y, 
+            end.x - controlB.x, end.y - controlB.y, 
+            t, dest
+        );
     }
     
     @Override
