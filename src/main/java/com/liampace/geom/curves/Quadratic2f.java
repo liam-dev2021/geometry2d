@@ -79,6 +79,10 @@ public class Quadratic2f implements Bezier2f {
 
     private final Vector2f start, control, end;
 
+    public Quadratic2f() {
+        this(new Vector2f(), new Vector2f(), new Vector2f());
+    }
+
     public Quadratic2f(Quadratic2f other) {
         this(other.start, other.control, other.end);
     }

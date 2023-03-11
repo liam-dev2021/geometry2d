@@ -127,6 +127,10 @@ public class Cubic2f implements Bezier2f {
 
     private final Vector2f start, controlA, controlB, end;
 
+    public Cubic2f() {
+        this(new Vector2f(), new Vector2f(), new Vector2f(), new Vector2f());
+    }
+
     public Cubic2f(Cubic2f other) {
         this(other.start, other.controlA, other.controlB, other.end);
     }

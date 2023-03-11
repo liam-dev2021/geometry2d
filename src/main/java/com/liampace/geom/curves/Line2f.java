@@ -61,6 +61,10 @@ public class Line2f implements Bezier2f {
 
     private final Vector2f start, end;
 
+    public Line2f() {
+        this(new Vector2f(), new Vector2f());
+    }
+
     public Line2f(Line2f other) {
         this(other.start, other.end);
     }
