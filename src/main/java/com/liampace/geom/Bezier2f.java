@@ -112,7 +112,9 @@ public interface Bezier2f {
     }
 
     /**
-     * Calculates the interpolation factor in which the given point is projected onto the bezier curve
+     * Calculates the interpolation factor in which the given point is projected
+     * onto the bezier curve
+     * 
      * @param position A 2D Cartesian Coordinate
      * @return interpolation factor between the range of [0-1]
      */
