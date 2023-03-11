@@ -39,8 +39,7 @@ public class Cubic2f implements Bezier2f {
 
     @Override
     public int getLength() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        return LENGTH;
     }
 
     @Override
