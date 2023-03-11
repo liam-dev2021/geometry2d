@@ -15,11 +15,19 @@ public class AAR {
         this.max = new Vector2f();
     }
 
-    public AAR setFromCenter(Vector2f pos, Vector2f radii) {
-        return null;
+    public AAR setFromCenter(Vector2f pos, Vector2f size) {
+        size.div(-2.0f, min).add(pos);
+        size.div(+2.0f, max).add(pos);
+        return this;
     }
     public AAR setFromBounds(Vector2f...positions) {
-        return null;
+        min.set(Float.MAX_VALUE);
+        max.set(Float.MIN_VALUE);
+        for (Vector2f pos : positions) {
+            min.min(min, pos);
+            max.max(max, pos);
+        }
+        return this;
     }
     
     public Vector2fc getMin() {
