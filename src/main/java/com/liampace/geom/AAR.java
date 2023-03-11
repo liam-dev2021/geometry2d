@@ -5,12 +5,15 @@ import java.util.Collection;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 
+import com.liampace.geom.curves.Line2f;
+
 /**
  * Axis Aligned Rectangle
  */
 public class AAR implements Shape {
     
     private final Vector2f min, max;
+    private final Line2f[] edges = new Line2f[4];
 
     public AAR(AAR other) {
         this.min = other.min;
@@ -20,6 +23,10 @@ public class AAR implements Shape {
     public AAR() {
         this.min = new Vector2f();
         this.max = new Vector2f();
+        edges[0] = new Line2f();
+        edges[1] = new Line2f(edges[0].getEnd(), new Vector2f());
+        edges[2] = new Line2f(edges[1].getEnd(), new Vector2f());
+        edges[3] = new Line2f(edges[2].getEnd(), edges[0].getStart());
     }
 
     public AAR set(AAR other) {
@@ -73,8 +80,11 @@ public class AAR implements Shape {
 
     @Override
     public Bezier2f[] getEdges() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEdges'");
+        edges[0].getStart().set(min);
+        edges[0].getStart().add(max.x, 0, edges[0].getEnd());
+        edges[1].getStart().add(0, max.y, edges[1].getEnd());
+        edges[2].getStart().sub(max.x, 0, edges[2].getEnd());
+        return edges;
     }
 
     @Override
