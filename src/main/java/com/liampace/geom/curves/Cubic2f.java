@@ -11,10 +11,7 @@ public class Cubic2f implements Bezier2f {
     private final Vector2f start, controlA, controlB, end;
 
     public Cubic2f(Cubic2f other) {
-        this.start = other.start;
-        this.controlA = other.controlA;
-        this.controlB = other.controlB;
-        this.end = other.end;
+        this(other.start, other.controlA, other.controlB, other.end);
     }
     public Cubic2f(Vector2f start, Vector2f controlA, Vector2f controlB, Vector2f end) {
         this.start = start;
@@ -23,10 +20,7 @@ public class Cubic2f implements Bezier2f {
         this.end = end;
     }
     public Cubic2f(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
-        this.start = new Vector2f(x0 ,y0);
-        this.controlA = new Vector2f(x1, y1);
-        this.controlB = new Vector2f(x2, y2);
-        this.end = new Vector2f(x3, y3);
+        this(new Vector2f(x0 ,y0), new Vector2f(x1, y1), new Vector2f(x2, y2), new Vector2f(x3, y3));
     }
 
     public Cubic2f set(Cubic2f other) {
