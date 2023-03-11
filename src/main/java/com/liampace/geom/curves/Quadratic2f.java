@@ -149,4 +149,9 @@ public class Quadratic2f implements Bezier2f {
         return Quadratic2f.SolveQuadraticBezier(start.x, control.x, end.x, index, dest);
     }
 
+    @Override
+    protected Quadratic2f clone() {
+        return new Quadratic2f(this);
+    }
+
 }

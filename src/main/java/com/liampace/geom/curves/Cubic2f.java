@@ -206,4 +206,9 @@ public class Cubic2f implements Bezier2f {
         return Cubic2f.SolveCubicBezier(start.x, controlA.x, controlB.x, end.x, index, dest);
     }
 
+    @Override
+    protected Cubic2f clone() {
+        return new Cubic2f(this);
+    }
+
 }

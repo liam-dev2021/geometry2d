@@ -128,4 +128,9 @@ public class Line2f implements Bezier2f {
         return Line2f.solve(start.x, end.x, index, dest);
     }
 
+    @Override
+    protected Line2f clone() {
+        return new Line2f(this);
+    }
+
 }

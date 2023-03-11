@@ -60,4 +60,9 @@ public class AAR {
         return max;
     }
 
+    @Override
+    protected AAR clone() {
+        return new AAR(this);
+    }
+
 }
