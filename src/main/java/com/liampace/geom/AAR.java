@@ -12,9 +12,20 @@ public class AAR {
     
     private final Vector2f min, max;
 
+    public AAR(AAR other) {
+        this.min = other.min;
+        this.max = other.max;
+    }
+
     public AAR() {
         this.min = new Vector2f();
         this.max = new Vector2f();
+    }
+
+    public AAR set(AAR other) {
+        this.min.set(other.min);
+        this.max.set(other.max);
+        return this;
     }
 
     public AAR setFromCenter(Vector2f pos, Vector2f size) {
