@@ -1,5 +1,7 @@
 package com.liampace.geom;
 
+import java.util.Collection;
+
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 
@@ -27,6 +29,16 @@ public class AAR {
             min.min(min, pos);
             max.max(max, pos);
         }
+        return this;
+    }
+
+    public AAR setFromBounds(Collection<Vector2f> positions) {
+        min.set(Float.MAX_VALUE);
+        max.set(Float.MIN_VALUE);
+        positions.forEach(pos -> {
+            min.min(min, pos);
+            max.max(max, pos);
+        });
         return this;
     }
     
