@@ -9,6 +9,24 @@ public class Line2f implements Bezier2f {
     public static final int LENGTH = 2;
 
     /**
+     * Performs a Linear Interpolation as defined by {@code P0(1-t) + P1(t)}
+     * @param x0 X coordinate of start point
+     * @param y0 Y coordinate of start point
+     * @param x1 X coordinate of end point
+     * @param y1 Y coordinate of end point
+     * @param t interpolation factor between [0-1] range
+     * @param dest will hold the result
+     * @return {@code dest}
+     */
+    public static Vector2f Interpolate(float x0, float y0, float x1, float y1, float t, Vector2f dest) {
+        float nt = (1 - t);
+        return dest.set(
+            nt * x0 + t * x1,
+            nt * y0 + t * y1
+        );
+    }
+
+    /**
      * Solves the linear equation as defined by {@code ax + by = c}
      * @param a the first coefficient
      * @param b the second coefficient
@@ -70,7 +88,7 @@ public class Line2f implements Bezier2f {
 
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        return start.lerp(end, t, dest);
+        return Interpolate(start.x, start.y, end.x, end.y, t, dest);
     }
 
     @Override

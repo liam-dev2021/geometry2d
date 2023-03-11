@@ -8,6 +8,29 @@ public class Quadratic2f implements Bezier2f {
 
     public static final int LENGTH = 3;
 
+    /**
+     * Performs a Quadratic Interpolation as defined by {@code P0(1-t)^2 + P1(2(1-t)t) + P2(t^2)}
+     * @param x0 X coordinate of start point
+     * @param y0 Y coordinate of start point
+     * @param x1 X coordinate of control point
+     * @param y1 Y coordinate of control point
+     * @param x2 X coordinate of end point
+     * @param y2 Y coordinate of end point
+     * @param t interpolation factor between [0-1] range
+     * @param dest will hold the result
+     * @return {@code dest}
+     */
+    public static Vector2f Interpolate(float x0, float y0, float x1, float y1, float x2, float y2, float t, Vector2f dest) {
+        float nt = (1 - t);
+        float ntnt = nt*nt;
+        float ntt2 = nt*t*2;
+        float tt = t*t;
+        return dest.set(
+            ntnt * x0 + ntt2 * x1 + tt * x2,
+            ntnt * y0 + ntt2 * y1 + tt * y2
+        );
+    }
+
     private final Vector2f start, control, end;
 
     public Quadratic2f(Quadratic2f other) {
@@ -54,16 +77,7 @@ public class Quadratic2f implements Bezier2f {
     }
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        // Quadratic Bezier Explicit Form:
-        // P(t) = P0*(1-t)^2 + P1*2(1-t)*t + P2*t^2
-        float nt = (1 - t);
-        float ntnt = nt*nt;
-        float ntt2 = nt*t*2;
-        float tt = t*t;
-        return dest.set(
-            ntnt * start.x + ntt2 * control.x + tt * end.x,
-            ntnt * start.y + ntt2 * control.y + tt * end.y
-        );
+        return Interpolate(start.x, start.y, control.x, control.y, end.x, end.y, t, dest);
     }
     @Override
     public Vector2f getDerivative(float t, Vector2f dest) {
