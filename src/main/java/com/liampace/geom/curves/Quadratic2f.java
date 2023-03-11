@@ -54,8 +54,16 @@ public class Quadratic2f implements Bezier2f {
     }
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+        // Quadratic Bezier Explicit Form:
+        // P(t) = P0*(1-t)^2 + P1*2(1-t)*t + P2*t^2
+        float nt = (1 - t);
+        float ntnt = nt*nt;
+        float ntt2 = nt*t*2;
+        float tt = t*t;
+        return dest.set(
+            ntnt * start.x + ntt2 * control.x + tt * end.x,
+            ntnt * start.y + ntt2 * control.y + tt * end.y
+        );
     }
     @Override
     public Vector2f getDerivative(float t, Vector2f dest) {
