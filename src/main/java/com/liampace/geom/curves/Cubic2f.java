@@ -6,6 +6,8 @@ import com.liampace.geom.Bezier2f;
 
 public class Cubic2f implements Bezier2f {
     
+    private static final float CUBE_ROOT_EXPONENT = 1.0f / 3.0f;
+    private static final float SQRT_3 = (float)Math.sqrt(3.0f);
     public static final int LENGTH = 4;
 
     /**
@@ -35,6 +37,87 @@ public class Cubic2f implements Bezier2f {
             ntntnt * y0 + ntntt3 * y1 + nttt3 * y2 + ttt * y3
         );
     }
+
+    /**
+     * Solves the cubic equation as defined by {@code ax^3 = bx^2 + cx + d = 0}
+     * @param a the coefficient of the first term
+     * @param b the coefficient of the second term
+     * @param c the coefficient of the third term
+     * @param d the coefficient of the fourth term
+     * @param index the starting position of {@code dest} in which the roots will be written to
+     * @param dest will hold the results
+     * @return number of roots
+     */
+    public static int SolveCubicEquation(float a, float b, float c, float d, int index, float[] dest) {
+        float A = a / d;
+        float B = b / d;
+        float C = c / d;
+        float v0 = (3.0f * B - A * A) / 3.0f;
+        float v1 = (2.0f * A * A * A - 9.0f * B * A + 27.0f * C) / 27.0f;
+        float offset = C / 3.0f;
+        float discrim = v1 * v1 * 0.25f + v0 * v0 / 27.0f;
+        float halfV1 = v1 * 0.5f;
+        float temp = 0, root = 0;
+        int count = 0;
+        if (discrim > 0) {
+            discrim = (float)Math.sqrt(discrim);
+            temp = -halfV1 + discrim;
+            if (temp >= 0) {
+                root = (float)Math.pow(temp, CUBE_ROOT_EXPONENT);
+            } else {
+                root = -(float)Math.pow(-temp, CUBE_ROOT_EXPONENT);
+            }
+            temp = -halfV1 - discrim;
+            if (temp >= 0) {
+                root += Math.pow(temp, CUBE_ROOT_EXPONENT);
+            } else {
+                root -= Math.pow(temp, CUBE_ROOT_EXPONENT);
+            }
+            dest[index] = root;
+            count = 1;
+        } else if (discrim < 0) {
+            float dist = (float)Math.sqrt(-v0 / 3.0f);
+            float angle = (float)Math.atan2(Math.sqrt(-discrim), -halfV1) / 3.0f;
+            float cos = (float)Math.cos(angle);
+            float sin = SQRT_3 * (float)Math.sin(angle);
+            dest[index] = 2.0f * dist * cos;
+            dest[index + 1] = -dist * (cos + sin);
+            dest[index + 2] = -dist * (cos - sin);
+        } else {
+            if (halfV1 >= 0) {
+                temp = (float)Math.pow(halfV1, CUBE_ROOT_EXPONENT);
+            } else {
+                temp = (float)Math.pow(-halfV1, CUBE_ROOT_EXPONENT);
+            }
+            dest[index] = 2.0f * temp;
+            dest[index + 1] = -temp;
+        }
+        for (int i = 0; i < count; i++) {
+            dest[index + i] -= offset;
+        }
+        return count;
+    }
+
+    /**
+     * Converts a 1D cubic bezier into a standard form cubic equation and finds the roots of that equation
+     * @param start the starting point of the 1D bezier
+     * @param controlA the first control point of the 1D bezier
+     * @param controlB the second control point of the 1D bezier
+     * @param end the ending point of the 1D bezier
+     * @param index the starting position of {@code dest} in which the roots will be written to
+     * @param dest will hold the results
+     * @return number of roots
+     */
+    public static int SolveCubicBezier(float start, float controlA, float controlB, float end, int index, float[] dest) {
+        return Cubic2f.SolveCubicEquation(
+            start, 
+            (controlA - start) * 3, 
+            (start - 2 * controlA + controlB) * 3, 
+            -start + (controlA - controlB) * 3 + end, 
+            index, dest
+        );
+    }
+
 
     private final Vector2f start, controlA, controlB, end;
 
@@ -98,14 +181,12 @@ public class Cubic2f implements Bezier2f {
     
     @Override
     public int getInterceptsX(int index, float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsX'");
+        return Cubic2f.SolveCubicBezier(start.y, controlA.y, controlB.y, end.y, index, dest);
     }
     
     @Override
     public int getInterceptsY(int index, float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsY'");
+        return Cubic2f.SolveCubicBezier(start.x, controlA.x, controlB.x, end.x, index, dest);
     }
 
 }

@@ -30,6 +30,7 @@ public class Line2f implements Bezier2f {
      * Solves the linear equation as defined by {@code ax + by = c}
      * @param a the coefficient of the first term
      * @param b the coefficient of the second term
+     * @param index the starting position of {@code dest} in which the roots will be written to
      * @param dest will hold the results
      * @return number of roots
      */
@@ -45,6 +46,7 @@ public class Line2f implements Bezier2f {
      * Converts a 1D linear bezier into a standard form linear equation and finds the roots of that equation
      * @param start the starting point of the 1D bezier
      * @param end the ending point of the 1D bezier
+     * @param index the starting position of {@code dest} in which the roots will be written to
      * @param dest will hold the roots
      * @return number of roots
      */
