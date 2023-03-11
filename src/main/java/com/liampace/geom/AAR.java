@@ -8,9 +8,12 @@ import org.joml.Vector2fc;
  */
 public class AAR {
     
-    private Vector2f min, max;
+    private final Vector2f min, max;
 
-    public AAR() {}
+    public AAR() {
+        this.min = new Vector2f();
+        this.max = new Vector2f();
+    }
 
     public AAR setFromCenter(Vector2f pos, Vector2f radii) {
         return null;
@@ -20,10 +23,10 @@ public class AAR {
     }
     
     public Vector2fc getMin() {
-        return null;
+        return min;
     }
     public Vector2fc getMax() {
-        return null;
+        return max;
     }
 
 }
