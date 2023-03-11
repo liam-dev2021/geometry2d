@@ -8,7 +8,7 @@ import org.joml.Vector2fc;
 /**
  * Axis Aligned Rectangle
  */
-public class AAR {
+public class AAR implements Shape {
     
     private final Vector2f min, max;
 
@@ -63,6 +63,24 @@ public class AAR {
     @Override
     protected AAR clone() {
         return new AAR(this);
+    }
+
+    @Override
+    public boolean contains(Vector2f position) {
+        return (min.x <= position.x && position.x <= max.x)
+            && (min.y <= position.y && position.y <= max.y); 
+    }
+
+    @Override
+    public Bezier2f[] getEdges() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEdges'");
+    }
+
+    @Override
+    public AAR getBounds() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
     }
 
 }
