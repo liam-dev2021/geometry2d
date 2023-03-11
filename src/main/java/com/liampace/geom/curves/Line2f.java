@@ -8,6 +8,21 @@ public class Line2f implements Bezier2f {
 
     public static final int LENGTH = 2;
 
+    /**
+     * Solves the linear equation as defined by {@code ax + by = c}
+     * @param a the first coefficient
+     * @param b the second coefficient
+     * @param dest will hold the results
+     * @return number of roots
+     */
+    public static int SolveLinearEquation(float a, float b, float[] dest) {
+        if (b == 0) {
+            return 0;
+        }
+        dest[0] = -a / b;
+        return 1;
+    }
+
     private final Vector2f start, end;
 
     public Line2f(Line2f other) {
@@ -63,16 +78,18 @@ public class Line2f implements Bezier2f {
         return end.sub(start, dest);
     }
 
+    private int solve(float start, float end, float[] dest) {
+        return Line2f.SolveLinearEquation(start, end - start, dest);
+    }
+
     @Override
     public int getInterceptsX(float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsX'");
+        return this.solve(start.y, end.y, dest);
     }
 
     @Override
     public int getInterceptsY(float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsY'");
+        return this.solve(start.x, end.x, dest);
     }
     
 }

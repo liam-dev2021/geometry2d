@@ -67,14 +67,14 @@ public interface Bezier2f {
     }
 
     /**
-     * Solves the bezier curve where the roots cross the X-Axis.
+     * Solves the bezier curve where the roots cross the X-Axis, aka when Y = 0.
      * @param dest will hold all real roots of this bezier curve
      * @return number of roots found
      */
     public int getInterceptsX(float[] dest);
 
     /**
-     * Solves the bezier curve where the roots cross the Y-Axis.
+     * Solves the bezier curve where the roots cross the Y-Axis, aka when X = 0.
      * @param dest will hold all real roots of this bezier curve
      * @return number of roots found
      */
