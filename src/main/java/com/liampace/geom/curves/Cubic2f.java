@@ -24,13 +24,17 @@ public class Cubic2f implements Bezier2f {
     }
 
     public Cubic2f set(Cubic2f other) {
-        return null;
+        return this.set(other.start.x, other.start.y, other.controlA.x, other.controlA.y, other.controlB.x, other.controlB.y, other.end.x, other.end.y);
     }
     public Cubic2f set(Vector2f start, Vector2f controlA, Vector2f controlB, Vector2f end) {
-        return null;
+        return this.set(start.x, start.y, controlA.x, controlA.y, controlB.x, controlB.y, end.x, end.y);
     }
     public Cubic2f set(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
-        return null;
+        this.start.set(x0, y0);
+        this.controlA.set(x1, y1);
+        this.controlB.set(x2, y2);
+        this.end.set(x3, y3);
+        return this;
     }
 
     @Override
