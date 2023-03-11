@@ -40,6 +40,17 @@ public class Line2f implements Bezier2f {
         dest[0] = -a / b;
         return 1;
     }
+    
+    /**
+     * Converts a 1D linear bezier into a standard form linear equation and finds the roots of that equation
+     * @param start the starting point of the 1D bezier
+     * @param end the ending point of the 1D bezier
+     * @param dest will hold the roots
+     * @return number of roots
+     */
+    public static int solve(float start, float end, float[] dest) {
+        return Line2f.SolveLinearEquation(start, end - start, dest);
+    }
 
     private final Vector2f start, end;
 
@@ -96,25 +107,14 @@ public class Line2f implements Bezier2f {
         return end.sub(start, dest);
     }
 
-    /**
-     * Converts a 1D linear bezier into a standard form linear equation and finds the roots of that equation
-     * @param start the starting point of the 1D bezier
-     * @param end the ending point of the 1D bezier
-     * @param dest will hold the roots
-     * @return number of roots
-     */
-    private int solve(float start, float end, float[] dest) {
-        return Line2f.SolveLinearEquation(start, end - start, dest);
-    }
-
     @Override
     public int getInterceptsX(float[] dest) {
-        return this.solve(start.y, end.y, dest);
+        return Line2f.solve(start.y, end.y, dest);
     }
 
     @Override
     public int getInterceptsY(float[] dest) {
-        return this.solve(start.x, end.x, dest);
+        return Line2f.solve(start.x, end.x, dest);
     }
     
 }

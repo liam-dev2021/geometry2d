@@ -56,6 +56,18 @@ public class Quadratic2f implements Bezier2f {
         }
     }
 
+    /**
+     * Converts a 1D quadratic bezier into a standard form quadratic equation and finds the roots of that equation
+     * @param start the starting point of the 1D bezier
+     * @param control the control point of the 1D bezier
+     * @param end the ending point of the 1D bezier
+     * @param dest will hold the roots
+     * @return number of roots
+     */
+    public static int SolveQuadraticBezier(float start, float control, float end, float[] dest) {
+        return Quadratic2f.SolveQuadraticEquation(start, (control - start) * 2, start - control * 2 + end, dest);
+    }
+
     private final Vector2f start, control, end;
 
     public Quadratic2f(Quadratic2f other) {
@@ -102,31 +114,20 @@ public class Quadratic2f implements Bezier2f {
     }
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        return Interpolate(start.x, start.y, control.x, control.y, end.x, end.y, t, dest);
+        return Quadratic2f.Interpolate(start.x, start.y, control.x, control.y, end.x, end.y, t, dest);
     }
     @Override
     public Vector2f getDerivative(float t, Vector2f dest) {
         return Line2f.Interpolate(control.x - start.x, control.y - start.y, end.x - control.x, end.y - control.y, t, dest);
     }
 
-    /**
-     * Converts a 1D quadratic bezier into a standard form quadratic equation and finds the roots of that equation
-     * @param start the starting point of the 1D bezier
-     * @param control the control point of the 1D bezier
-     * @param end the ending point of the 1D bezier
-     * @param dest will hold the roots
-     * @return number of roots
-     */
-    private int solve(float start, float control, float end, float[] dest) {
-        return SolveQuadraticEquation(start, (control - start) * 2, start - control * 2 + end, dest);
-    }
     @Override
     public int getInterceptsX(float[] dest) {
-        return solve(start.y, control.y, end.y, dest);
+        return Quadratic2f.SolveQuadraticBezier(start.y, control.y, end.y, dest);
     }
     @Override
     public int getInterceptsY(float[] dest) {
-        return solve(start.x, control.x, end.x, dest);
+        return Quadratic2f.SolveQuadraticBezier(start.x, control.x, end.x, dest);
     }
 
 }
