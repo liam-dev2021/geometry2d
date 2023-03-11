@@ -28,8 +28,8 @@ public class Line2f implements Bezier2f {
 
     /**
      * Solves the linear equation as defined by {@code ax + by = c}
-     * @param a the first coefficient
-     * @param b the second coefficient
+     * @param a the coefficient of the first term
+     * @param b the coefficient of the second term
      * @param dest will hold the results
      * @return number of roots
      */
@@ -96,6 +96,13 @@ public class Line2f implements Bezier2f {
         return end.sub(start, dest);
     }
 
+    /**
+     * Converts a 1D linear bezier into a standard form linear equation and finds the roots of that equation
+     * @param start the starting point of the 1D bezier
+     * @param end the ending point of the 1D bezier
+     * @param dest will hold the roots
+     * @return number of roots
+     */
     private int solve(float start, float end, float[] dest) {
         return Line2f.SolveLinearEquation(start, end - start, dest);
     }

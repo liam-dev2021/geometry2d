@@ -31,6 +31,31 @@ public class Quadratic2f implements Bezier2f {
         );
     }
 
+    /**
+     * Solves the linear equation as defined by {@code ax^2 = bx + c = 0}
+     * @param a the coefficient of the first term
+     * @param b the coefficient of the second term
+     * @param c the coefficient of the third term
+     * @param dest will hold the results
+     * @return number of roots
+     */
+    public static int SolveQuadraticEquation(float a, float b, float c, float[] dest) {
+        float B = b / a;
+        float C = c / a;
+        float sqrt = B * B - 4 * C;
+        if (sqrt > 0) {
+            sqrt = (float)Math.sqrt(sqrt);
+            dest[0] = 0.5f * (-B + sqrt);
+            dest[1] = 0.5f * (-B - sqrt);
+            return 2;
+        } else if (sqrt == 0) {
+            dest[0] = 0.5f * -B;
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     private final Vector2f start, control, end;
 
     public Quadratic2f(Quadratic2f other) {
@@ -84,19 +109,24 @@ public class Quadratic2f implements Bezier2f {
         return Line2f.Interpolate(control.x - start.x, control.y - start.y, end.x - control.x, end.y - control.y, t, dest);
     }
 
+    /**
+     * Converts a 1D quadratic bezier into a standard form quadratic equation and finds the roots of that equation
+     * @param start the starting point of the 1D bezier
+     * @param control the control point of the 1D bezier
+     * @param end the ending point of the 1D bezier
+     * @param dest will hold the roots
+     * @return number of roots
+     */
     private int solve(float start, float control, float end, float[] dest) {
-        return 0;
+        return SolveQuadraticEquation(start, (control - start) * 2, start - control * 2 + end, dest);
     }
-
     @Override
     public int getInterceptsX(float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsX'");
+        return solve(start.y, control.y, end.y, dest);
     }
     @Override
     public int getInterceptsY(float[] dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInterceptsY'");
+        return solve(start.x, control.x, end.x, dest);
     }
 
 }
