@@ -9,7 +9,7 @@ public class Quadratic2f implements Bezier2f {
     public static final int LENGTH = 3;
 
     /**
-     * Performs a Quadratic Interpolation as defined by {@code P0(1-t)^2 + P1(2(1-t)t) + P2(t^2)}
+     * Performs a Quadratic Interpolation as defined by {@code (P0)(1-t)^2 + (P1)(2(1-t)t) + (P2)(t^2)}
      * @param x0 X coordinate of start point
      * @param y0 Y coordinate of start point
      * @param x1 X coordinate of control point

@@ -9,7 +9,7 @@ public class Line2f implements Bezier2f {
     public static final int LENGTH = 2;
 
     /**
-     * Performs a Linear Interpolation as defined by {@code P0(1-t) + P1(t)}
+     * Performs a Linear Interpolation as defined by {@code (P0)(1-t) + (P1)(t)}
      * @param x0 X coordinate of start point
      * @param y0 Y coordinate of start point
      * @param x1 X coordinate of end point

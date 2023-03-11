@@ -8,6 +8,34 @@ public class Cubic2f implements Bezier2f {
     
     public static final int LENGTH = 4;
 
+    /**
+     * Performs a Cubic Interpolation as defined by {@code (P0)(1-t)^3 + (P1)3t(1-t)^2 + (P2)(1-t)t^2 + (P3)t^3}
+     * @param x0 X coordinate of the starting point
+     * @param y0 Y coordinate of the starting point
+     * @param x1 X coordinate of the first control point
+     * @param y1 Y coordinate of the first control point
+     * @param x2 X coordinate of the second control point
+     * @param y2 Y coordinate of the second control point
+     * @param x3 X coordinate of the ending point
+     * @param y3 Y coordinate of the ending point
+     * @param t interpolation factor between [0-1] range
+     * @param dest will hold the result
+     * @return {@code dest}
+     */
+    public static Vector2f Interpolate(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3, float t, Vector2f dest) {
+        float nt = (1 - t);
+		float ntnt = nt*nt;
+		float ntntnt = ntnt*nt;
+		float tt = t*t;
+        float ttt = tt*t;
+        float ntntt3 = ntnt*t*3;
+        float nttt3 = nt*tt*3;
+        return dest.set(
+            ntntnt * x0 + ntntt3 * x1 + nttt3 * x2 + ttt * x3,
+            ntntnt * y0 + ntntt3 * y1 + nttt3 * y2 + ttt * y3
+        );
+    }
+
     private final Vector2f start, controlA, controlB, end;
 
     public Cubic2f(Cubic2f other) {
@@ -55,8 +83,7 @@ public class Cubic2f implements Bezier2f {
     
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+        return Cubic2f.Interpolate(start.x, start.y, controlA.x, controlA.y, controlB.x, controlB.y, end.x, end.y, t, dest);
     }
     
     @Override
