@@ -55,8 +55,7 @@ public class Line2f implements Bezier2f {
 
     @Override
     public Vector2f getPosition(float t, Vector2f dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+        return start.lerp(end, t, dest);
     }
 
     @Override
