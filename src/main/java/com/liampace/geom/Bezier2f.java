@@ -110,4 +110,25 @@ public interface Bezier2f {
             action.accept(this.getPoint(i));
         }
     }
+
+    /**
+     * Calculates the interpolation factor in which the given point is projected onto the bezier curve
+     * @param position A 2D Cartesian Coordinate
+     * @return interpolation factor between the range of [0-1]
+     */
+    default float project(Vector2f position) {
+        float[] temp = new float[this.getLength() - 1];
+        // Translate the bezier so that the given position is equal to the origin
+        this.forEach(p -> p.sub(position));
+        int count = this.getInterceptsY(0, temp);
+        float proj = Float.MAX_VALUE;
+        // Finds closest root
+        for (int i = 0; i < count; i++) {
+            proj = Math.min(proj, temp[i]);
+        }
+        // Translate the bezier so that the origin is equal to the given position
+        this.forEach(p -> p.add(position));
+        // Clamps root to [0-1] range
+        return Math.max(Math.min(proj, 1), 0);
+    }
 }
