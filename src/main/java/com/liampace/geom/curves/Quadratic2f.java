@@ -39,17 +39,17 @@ public class Quadratic2f implements Bezier2f {
      * @param dest will hold the results
      * @return number of roots
      */
-    public static int SolveQuadraticEquation(float a, float b, float c, float[] dest) {
+    public static int SolveQuadraticEquation(float a, float b, float c, int index, float[] dest) {
         float B = b / a;
         float C = c / a;
         float sqrt = B * B - 4 * C;
         if (sqrt > 0) {
             sqrt = (float)Math.sqrt(sqrt);
-            dest[0] = 0.5f * (-B + sqrt);
-            dest[1] = 0.5f * (-B - sqrt);
+            dest[index] = 0.5f * (-B + sqrt);
+            dest[index + 1] = 0.5f * (-B - sqrt);
             return 2;
         } else if (sqrt == 0) {
-            dest[0] = 0.5f * -B;
+            dest[index] = 0.5f * -B;
             return 1;
         } else {
             return 0;
@@ -64,8 +64,8 @@ public class Quadratic2f implements Bezier2f {
      * @param dest will hold the roots
      * @return number of roots
      */
-    public static int SolveQuadraticBezier(float start, float control, float end, float[] dest) {
-        return Quadratic2f.SolveQuadraticEquation(start, (control - start) * 2, start - control * 2 + end, dest);
+    public static int SolveQuadraticBezier(float start, float control, float end, int index, float[] dest) {
+        return Quadratic2f.SolveQuadraticEquation(start, (control - start) * 2, start - control * 2 + end, index, dest);
     }
 
     private final Vector2f start, control, end;
@@ -122,12 +122,12 @@ public class Quadratic2f implements Bezier2f {
     }
 
     @Override
-    public int getInterceptsX(float[] dest) {
-        return Quadratic2f.SolveQuadraticBezier(start.y, control.y, end.y, dest);
+    public int getInterceptsX(int index, float[] dest) {
+        return Quadratic2f.SolveQuadraticBezier(start.y, control.y, end.y, index, dest);
     }
     @Override
-    public int getInterceptsY(float[] dest) {
-        return Quadratic2f.SolveQuadraticBezier(start.x, control.x, end.x, dest);
+    public int getInterceptsY(int index, float[] dest) {
+        return Quadratic2f.SolveQuadraticBezier(start.x, control.x, end.x, index, dest);
     }
 
 }

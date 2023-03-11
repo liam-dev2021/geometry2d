@@ -33,11 +33,11 @@ public class Line2f implements Bezier2f {
      * @param dest will hold the results
      * @return number of roots
      */
-    public static int SolveLinearEquation(float a, float b, float[] dest) {
+    public static int SolveLinearEquation(float a, float b, int index, float[] dest) {
         if (b == 0) {
             return 0;
         }
-        dest[0] = -a / b;
+        dest[index] = -a / b;
         return 1;
     }
     
@@ -48,8 +48,8 @@ public class Line2f implements Bezier2f {
      * @param dest will hold the roots
      * @return number of roots
      */
-    public static int solve(float start, float end, float[] dest) {
-        return Line2f.SolveLinearEquation(start, end - start, dest);
+    public static int solve(float start, float end, int index, float[] dest) {
+        return Line2f.SolveLinearEquation(start, end - start, index, dest);
     }
 
     private final Vector2f start, end;
@@ -108,13 +108,13 @@ public class Line2f implements Bezier2f {
     }
 
     @Override
-    public int getInterceptsX(float[] dest) {
-        return Line2f.solve(start.y, end.y, dest);
+    public int getInterceptsX(int index, float[] dest) {
+        return Line2f.solve(start.y, end.y, index, dest);
     }
 
     @Override
-    public int getInterceptsY(float[] dest) {
-        return Line2f.solve(start.x, end.x, dest);
+    public int getInterceptsY(int index, float[] dest) {
+        return Line2f.solve(start.x, end.x, index, dest);
     }
     
 }
