@@ -25,13 +25,16 @@ public class Quadratic2f implements Bezier2f {
     }
 
     public Quadratic2f set(Quadratic2f other) {
-        return null;
+        return this.set(other.start.x, other.start.y, other.control.x, other.control.y, end.x, end.y);
     }
     public Quadratic2f set(Vector2f start, Vector2f control, Vector2f end) {
-        return null;       
+        return this.set(start.x, start.y, control.x, control.y, end.x, end.y);       
     }
     public Quadratic2f set(float x0, float y0, float x1, float y1, float x2, float y2) {
-        return null;
+        this.start.set(x0, y0);
+        this.control.set(x1, y1);
+        this.end.set(x2, y2);
+        return this;
     }
 
     @Override
