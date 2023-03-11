@@ -103,13 +103,20 @@ public class Line2f implements Bezier2f {
     public Vector2f getPoint(int index) {
         switch (index) {
             case 0:
-                return start;
+                return this.getStart();
             case 1:
-                return end;
+                return this.getEnd();
             default:
                 throw new IndexOutOfBoundsException(
                         "Expected index in range [0-%s] but recieved: %s".formatted(LENGTH - 1, index));
         }
+    }
+
+    public Vector2f getStart() {
+        return start;
+    }
+    public Vector2f getEnd() {
+        return end;
     }
 
     @Override
