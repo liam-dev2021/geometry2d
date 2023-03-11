@@ -89,8 +89,7 @@ public class AAR implements Shape {
 
     @Override
     public AAR getBounds() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
+        return this;
     }
 
 }
