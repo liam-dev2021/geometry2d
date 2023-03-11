@@ -1,5 +1,6 @@
 package com.liampace.geom.curves;
 
+import org.joml.Matrix3x2fc;
 import org.joml.Vector2f;
 
 import com.liampace.geom.Bezier2f;
@@ -168,4 +169,13 @@ public class Quadratic2f implements Bezier2f {
         return new Quadratic2f(this);
     }
 
+    @Override
+    public Quadratic2f transformPosition(Matrix3x2fc matrix) {
+        return (Quadratic2f)Bezier2f.super.transformPosition(matrix);
+    }
+
+    @Override
+    public Quadratic2f transformDirection(Matrix3x2fc matrix) {
+        return (Quadratic2f)Bezier2f.super.transformDirection(matrix);
+    }
 }

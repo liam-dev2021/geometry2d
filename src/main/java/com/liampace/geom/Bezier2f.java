@@ -2,6 +2,7 @@ package com.liampace.geom;
 
 import java.util.function.Consumer;
 
+import org.joml.Matrix3x2fc;
 import org.joml.Vector2f;
 
 public interface Bezier2f {
@@ -132,5 +133,24 @@ public interface Bezier2f {
         this.forEach(p -> p.add(position));
         // Clamps root to [0-1] range
         return Math.max(Math.min(proj, 1), 0);
+    }
+
+    /**
+     * Multiplies each point of the bezier with the supplied matrix as if it was a 3D-vector with z=1.
+     * @param matrix 3x2 read only matrix
+     * @return {@code this}
+     */
+    default Bezier2f transformPosition(Matrix3x2fc matrix) {
+        this.forEach(p -> matrix.transformPosition(p));
+        return this;
+    }
+    /**
+     * Multiplies each point of the bezier with the supplied matrix  as if it was a 3D-vector with z=0.
+     * @param matrix 3x2 read only matrix
+     * @return {@code this}
+     */
+    default Bezier2f transformDirection(Matrix3x2fc matrix) {
+        this.forEach(p -> matrix.transformDirection(p));
+        return this;
     }
 }
