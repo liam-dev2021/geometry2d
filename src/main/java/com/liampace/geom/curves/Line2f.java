@@ -6,7 +6,9 @@ import com.liampace.geom.Bezier2f;
 
 public class Line2f implements Bezier2f {
 
-    private Vector2f start, end;
+    public static final int LENGTH = 2;
+
+    private final Vector2f start, end;
 
     public Line2f(Line2f other) {
         this.start = other.start;
@@ -39,8 +41,7 @@ public class Line2f implements Bezier2f {
 
     @Override
     public int getLength() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        return LENGTH;
     }
 
     @Override
