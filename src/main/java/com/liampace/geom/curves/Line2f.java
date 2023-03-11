@@ -60,8 +60,7 @@ public class Line2f implements Bezier2f {
 
     @Override
     public Vector2f getDerivative(float t, Vector2f dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDerivative'");
+        return end.sub(start, dest);
     }
 
     @Override
