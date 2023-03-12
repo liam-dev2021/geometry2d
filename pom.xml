@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.liampace.geom</groupId>
   <artifactId>geometry2d</artifactId>
-  <version>0.0.1</version>
+  <version>0.4.9</version>
   <name>geometry2d</name>
 
   <properties>
